@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Civilite;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -16,23 +17,29 @@ class ClientController extends Controller
     // Afficher le formulaire de création de client
     public function create()
     {
-        return view('clients.create');
+        // Récupérer toutes les civilités
+        $civilites = Civilite::all();
+    
+        // Passer les civilités à la vue
+        return view('clients.create', compact('civilites'));
     }
 
     // Enregistrer un nouveau client
     public function store(Request $request)
     {
+        // Validation
         $request->validate([
-            'civilite' => 'required',
+            'civilite_id' => 'required|exists:civilites,id',  // Valider que l'ID de civilité existe
             'nom' => 'required|string|max:100',
             'prenom' => 'required|string|max:100',
             'email' => 'required|email|unique:clients,email',
         ]);
-
+    
+        // Créer un nouveau client avec l'ID de civilité
         Client::create($request->all());
+    
         return redirect()->route('clients.index');
     }
-
     // Afficher un client spécifique (facultatif)
     public function show(Client $client)
     {
@@ -42,13 +49,19 @@ class ClientController extends Controller
     // Afficher le formulaire d'édition d'un client
     public function edit(Client $client)
     {
-        return view('clients.edit', compact('client'));
+    // Récupérer toutes les civilités
+    $civilites = Civilite::all();
+
+    // Passer les clients et les civilités à la vue
+    return view('clients.edit', compact('client', 'civilites'));
+
     }
 
     // Mettre à jour un client
     public function update(Request $request, Client $client)
     {
         $request->validate([
+            'civilite_id' => 'required|exists:civilites,id',
             'nom' => 'required|string|max:100',
             'prenom' => 'required|string|max:100',
             'email' => 'required|email|unique:clients,email,' . $client->id,

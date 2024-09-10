@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('civilite', 50);
+            $table->foreignId('civilite_id')->constrained('civilites'); // Clé étrangère vers 'civilites'
             $table->string('nom', 100);
             $table->string('prenom', 100);
             $table->string('tel', 20)->nullable();
@@ -26,5 +26,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('clients');
     }
-    
 };

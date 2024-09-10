@@ -8,15 +8,18 @@
         @method('PUT')
 
         Civilité : 
-        <select name="civilite">
-            <option value="Monsieur" {{ $client->civilite == 'Monsieur' ? 'selected' : '' }}>Monsieur</option>
-            <option value="Madame" {{ $client->civilite == 'Madame' ? 'selected' : '' }}>Madame</option>
+        <select name="civilite_id">
+            @foreach ($civilites as $civilite)
+                <option value="{{ $civilite->id }}" {{ $client->civilite_id == $civilite->id ? 'selected' : '' }}>
+                    {{ $civilite->libelle }}
+                </option>
+            @endforeach
         </select><br>
 
-        Nom : <input type="text" name="nom" value="{{ $client->nom }}"><br>
-        Prénom : <input type="text" name="prenom" value="{{ $client->prenom }}"><br>
-        Téléphone : <input type="text" name="tel" value="{{ $client->tel }}"><br>
-        Email : <input type="email" name="email" value="{{ $client->email }}"><br>
+        Nom : <input type="text" name="nom" value="{{ old('nom', $client->nom) }}"><br>
+        Prénom : <input type="text" name="prenom" value="{{ old('prenom', $client->prenom) }}"><br>
+        Téléphone : <input type="text" name="tel" value="{{ old('tel', $client->tel) }}"><br>
+        Email : <input type="email" name="email" value="{{ old('email', $client->email) }}"><br>
 
         <button type="submit">Enregistrer</button>
     </form>

@@ -6,9 +6,10 @@
     <form action="{{ route('clients.store') }}" method="POST">
         @csrf
         Civilité : 
-        <select name="civilite">
-            <option value="Monsieur">Monsieur</option>
-            <option value="Madame">Madame</option>
+        <select name="civilite_id">
+            @foreach ($civilites as $civilite)
+                <option value="{{ $civilite->id }}">{{ $civilite->libelle }}</option>
+            @endforeach
         </select><br>
 
         Nom : <input type="text" name="nom" value="{{ old('nom') }}"><br>

@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory; // Import du trait
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    use HasFactory; // Utilisation du trait
+    use HasFactory;  // Assurez-vous que ce trait est bien présent
 
-    protected $fillable = ['civilite', 'nom', 'prenom', 'tel', 'email'];
+    protected $fillable = ['civilite_id', 'nom', 'prenom', 'tel', 'email'];
+
+    public function civilite()
+    {
+        return $this->belongsTo(Civilite::class);
+    }
 }

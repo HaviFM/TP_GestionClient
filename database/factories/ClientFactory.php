@@ -12,7 +12,7 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-            'civilite' => $this->faker->randomElement(['Monsieur', 'Madame']),
+            'civilite_id' => \App\Models\Civilite::inRandomOrder()->first()->id, // Génère une civilité aléatoire
             'nom' => $this->faker->lastName(),
             'prenom' => $this->faker->firstName(),
             'tel' => $this->faker->phoneNumber(),

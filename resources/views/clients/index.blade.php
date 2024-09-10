@@ -6,7 +6,7 @@
 
     <ul>
         @foreach ($clients as $client)
-            <li>{{ $client->civilite }} {{ $client->nom }} {{ $client->prenom }} - {{ $client->email }}
+            <li>{{ $client->civilite->libelle }} {{ $client->nom }} {{ $client->prenom }} - {{ $client->email }}
                 <a href="{{ route('clients.edit', $client->id) }}">Modifier</a>
 
                 <!-- Formulaire de suppression avec confirmation -->
